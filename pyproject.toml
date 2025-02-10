@@ -6,7 +6,7 @@ authors = ["kdrivas <k.rivas@pucp.edu.pe>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "3.10"
 pandas = "2.2.3"
 xgboost = "2.1.4"
 scikit-learn = "1.6.1"
