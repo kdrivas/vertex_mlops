@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "price-model"
+version = "0.1.0"
+description = "Price model package"
+authors = ["kdrivas <k.rivas@pucp.edu.pe>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pandas = "2.2.3"
+xgboost = "2.1.4"
+scikit-learn = "1.6.1"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^1.5.7"
+isort = "^5.9.3"
+pre-commit = "^2.14.0"
+pytest = "^6.2.5"
+pytest-cov = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
