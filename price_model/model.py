@@ -6,7 +6,7 @@ from sklearn.metrics import mean_squared_error as MSE
 from price_model.constants import MODEL_PARAMS
 
 
-def train_model(X_train: pd.DataFrame, y_train: pd.Series) -> xgb.core.Booster:
+def train_price_model(X_train: pd.DataFrame, y_train: pd.Series) -> xgb.core.Booster:
     """This function creates features for the data."""
     train_dmatrix = xgb.DMatrix(data=X_train, label=y_train) 
     xgb_model = xgb.train(params=MODEL_PARAMS, dtrain=train_dmatrix)
