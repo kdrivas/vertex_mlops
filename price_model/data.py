@@ -29,8 +29,11 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
 
     df["retailer_l"] = df["retailer"].str.lower()
     for col in ONE_HOT_RETAILER_COLS:
-        df[col] = df["retailer_l"].str.contains(col)
-        df[col] = df[col].astype(bool)
+        df[col] = df["retailer_l"].str.contains(
+            col,
+            case=False,
+            na=False,
+        )
 
     reg = r"|".join(ONE_HOT_RETAILER_COLS)
     df["other_retailer"] = ~df["retailer_l"].str.contains(
@@ -41,8 +44,11 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
 
     df["color_l"] = df["color"].str.lower()
     for col in ONE_HOT_COLOR_COLS:
-        df[col] = df["color_l"].str.contains(col)
-        df[col] = df[col].astype(bool)
+        df[col] = df["color_l"].str.contains(
+            col,
+            case=False,
+            na=False,
+        )
 
     reg = r"|".join(ONE_HOT_COLOR_COLS)
     df["other_color"] = ~df["color_l"].str.contains(
