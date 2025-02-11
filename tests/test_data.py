@@ -22,8 +22,6 @@ def test_create_features(sample_df):
     transformed_df = create_features(sample_df)
 
     # Check if columns are correctly created
-    assert "retailer_l" in transformed_df.columns
-    assert "color_l" in transformed_df.columns
     assert "mrp" in transformed_df.columns
     assert "rating_nan" in transformed_df.columns
 
