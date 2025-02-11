@@ -26,7 +26,6 @@ jobs:
         run: poetry run pytest .
 
   build_and_push_docker:
-    name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
 
     steps:
@@ -45,4 +44,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/price-model:${{ env.PACKAGE_VERSION }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/price-model:${{ env.PACKAGE_VERSION }}
