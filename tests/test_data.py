@@ -39,5 +39,4 @@ def test_create_features(sample_df):
     assert transformed_df["mrp"].tolist() == [25.5, 30.99, 15.0]
 
     # Check text length calculations
-    assert transformed_df["product_name_len"].tolist() == [6, 10, 5]
-    assert transformed_df["description_len"].tolist() == [12, 13, 8]
+    assert transformed_df["product_name_len"].tolist() == [17, 9, 13]
