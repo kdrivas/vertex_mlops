@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_squared_error as MSE 
 
-from constants import MODEL_PARAMS
+from price_model.constants import MODEL_PARAMS
 
 
 def train_model(X_train: pd.DataFrame, y_train: pd.Series) -> xgb.core.Booster:
