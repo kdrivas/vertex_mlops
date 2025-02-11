@@ -9,4 +9,4 @@ WORKDIR /app
 # Install dependencies
 COPY pyproject.toml pyproject.toml
 COPY price_model price_model
-RUN poetry install --no-root --no-dev
+RUN poetry install --only-root
