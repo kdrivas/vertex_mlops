@@ -1,0 +1,21 @@
+name: Github CI
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version-file: pyproject.toml
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+    - name: Install library
+      run: poetry install
+    - name: Check code style
+      run: poetry run pre-commit
+    - name: Run tests
+      run: poetry run pytest .
