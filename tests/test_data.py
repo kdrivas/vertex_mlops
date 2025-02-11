@@ -14,6 +14,7 @@ def sample_df():
         "product_name": ["Product 111111111", "Product 2", "Product 33333"],
         "description": ["Lorem Ipsum", "Lorem", "Ipsum"],
         "rating": [4.5, None, 3.9],
+        "review_count": [125, None, 40],
     }
     return pd.DataFrame(data)
 
