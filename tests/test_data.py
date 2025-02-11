@@ -8,7 +8,7 @@ from price_model.data import create_features
 def sample_df():
     """Creates a sample dataframe for testing."""
     data = {
-        "retailer": ["Victoria Secret", "Amazon", "Other"],
+        "retailer": ["Amazon", "Victoria Secret", "Other"],
         "color": ["Red ligth", "Dark blue", "Other"],
         "mrp": ["$25.50", "30.99 USD", "15"],
         "product_name": ["Product 111111111", "Product 2", "Product 33333"],
