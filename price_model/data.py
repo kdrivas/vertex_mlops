@@ -22,7 +22,7 @@ def preprocess_data(df: pd.DataFrame) -> [pd.DataFrame, pd.Series, pd.DataFrame,
     return X_train, y_train, X_test, y_test
 
 
-def create_features(df: pd.DataFrame) -> pd.DataFrame:
+def feature_eng_data(df: pd.DataFrame) -> pd.DataFrame:
     """This function creates features for the data."""
 
     df = df.copy() 
