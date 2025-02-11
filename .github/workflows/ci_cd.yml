@@ -31,7 +31,6 @@ jobs:
         run: poetry run pytest .
 
   build_and_push_docker:
-    if: ${{ github.event.pull_request.merged }}
     needs: test_and_lint
     runs-on: ubuntu-latest
 
