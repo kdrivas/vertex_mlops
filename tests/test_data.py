@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 
-from price_model.data import create_features
+from price_model.data import feature_eng_data
 
 
 @pytest.fixture
@@ -20,7 +20,7 @@ def sample_df():
 
 def test_create_features(sample_df):
     """Test if create_features correctly transforms the dataframe."""
-    transformed_df = create_features(sample_df)
+    transformed_df = feature_eng_data(sample_df)
 
     # Check if columns are correctly created
     assert "mrp" in transformed_df.columns

@@ -22,14 +22,18 @@ def preprocess_data(df: pd.DataFrame) -> [pd.DataFrame, pd.Series, pd.DataFrame,
     return X_train, y_train, X_test, y_test
 
 
-def create_features(df: pd.DataFrame) -> pd.DataFrame:
+def feature_eng_data(df: pd.DataFrame) -> pd.DataFrame:
     """This function creates features for the data."""
 
     df = df.copy() 
 
     df["retailer_l"] = df["retailer"].str.lower()
     for col in ONE_HOT_RETAILER_COLS:
-        df[col] = df["retailer_l"].str.contains(col)
+        df[col] = df["retailer_l"].str.contains(
+            col,
+            case=False,
+            na=False,
+        )
 
     reg = r"|".join(ONE_HOT_RETAILER_COLS)
     df["other_retailer"] = ~df["retailer_l"].str.contains(
@@ -40,7 +44,11 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
 
     df["color_l"] = df["color"].str.lower()
     for col in ONE_HOT_COLOR_COLS:
-        df[col] = df["color_l"].str.contains(col)
+        df[col] = df["color_l"].str.contains(
+            col,
+            case=False,
+            na=False,
+        )
 
     reg = r"|".join(ONE_HOT_COLOR_COLS)
     df["other_color"] = ~df["color_l"].str.contains(
