@@ -50,7 +50,8 @@ jobs:
         run: |-
           gcloud auth configure-docker ${{ env.DOCKER_REGION }}-docker.pkg.dev --quiet
       - name: Build image
-        run: docker build . -f Dockerfile  \
+        run: |
+          docker build . -f Dockerfile  \
             --tag ${{ env.PACKAGE_DOCKER_URI }}:${{ env.ENDPOINT_VERSION }} \
             --tag ${{ env.PACKAGE_DOCKER_URI }}:latest
       - name: Push image
@@ -75,7 +76,8 @@ jobs:
         run: |-
           gcloud auth configure-docker ${{ env.DOCKER_REGION }}-docker.pkg.dev --quiet
       - name: Build image
-        run: docker build . -f Dockerfile.server  \
+        run: |
+          docker build . -f Dockerfile.server  \
             --tag ${{ env.ENDPOINT_DOCKER_URI }}:${{ env.ENDPOINT_VERSION }} \
             --tag ${{ env.ENDPOINT_DOCKER_URI }}:latest
       - name: Push image
