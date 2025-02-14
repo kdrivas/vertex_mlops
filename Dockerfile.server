@@ -1,0 +1,6 @@
+FROM docker.io/cap2nemo/price-model:latest
+
+ARG PROJECT_ID
+ENV PROJECT_ID=$PROJECT_ID
+
+COPY ./app /app
