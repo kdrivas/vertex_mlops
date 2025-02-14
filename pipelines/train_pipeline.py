@@ -1,10 +1,7 @@
 from kfp.dsl import pipeline, component, If, Input, Output, Dataset, Model, Artifact
-from kfp import compiler
-from google.cloud import aiplatform as vertexai
 
-from datetime import datetime
 
-@component(base_image="cap2nemo/price-model:1.0.0")
+@component(base_image="cap2nemo/price-model:latest")
 def preprocess_data_component(
     train_preprocessed_data: Output[Dataset],
     test_preprocessed_data: Output[Dataset],
@@ -37,7 +34,7 @@ def preprocess_data_component(
     joblib.dump(y_test, test_labels_data.path)
 
 
-@component(base_image="cap2nemo/price-model:1.0.0")
+@component(base_image="cap2nemo/price-model:latest")
 def feature_engineering_component(
     train_preprocessed_data: Input[Dataset],
     test_preprocessed_data: Input[Dataset],
@@ -52,20 +49,20 @@ def feature_engineering_component(
         features (Output[Dataset]): Path to the features.
     """
 
-    from price_model.data import create_features
+    from price_model.data import feature_eng_data
     import joblib
 
     df_train = joblib.load(train_preprocessed_data.path)
     df_test = joblib.load(test_preprocessed_data.path)
-
-    df_train_feat = create_features(df_train)
-    df_test_feat = create_features(df_test)
+    
+    df_train_feat = feature_eng_data(df_train)
+    df_test_feat = feature_eng_data(df_test)
 
     joblib.dump(df_train_feat, train_features_data.path)
     joblib.dump(df_test_feat, test_features_data.path)
 
 
-@component(base_image="cap2nemo/price-model:1.0.0")
+@component(base_image="cap2nemo/price-model:latest")
 def train_model_component(
     train_features_data: Input[Dataset],
     train_labels_data: Input[Dataset],
@@ -79,18 +76,19 @@ def train_model_component(
         features (Output[Dataset]): Path to the features.
     """
 
-    from price_model.model import train_model
+    from price_model.model import train_price_model
     import joblib
 
     X_train = joblib.load(train_features_data.path)
     y_train = joblib.load(train_labels_data.path)
+    print(X_train.head())
 
-    xgb_model = train_model(X_train, y_train)
+    xgb_model = train_price_model(X_train, y_train)
 
     joblib.dump(xgb_model, model.path)
 
 
-@component(base_image="cap2nemo/price-model:1.0.0")
+@component(base_image="cap2nemo/price-model:latest")
 def evaluate_model_component(
     test_features_data: Input[Dataset],
     test_labels_data: Input[Dataset],
@@ -120,7 +118,7 @@ def evaluate_model_component(
         json.dump({"rmse": test_rmse}, f)
 
 
-@component(base_image="cap2nemo/price-model:1.0.0")
+@component(base_image="cap2nemo/price-model:latest")
 def register_model_component(
     project: str,
     location: str,
@@ -139,6 +137,8 @@ def register_model_component(
         metrics (Input[Artifact]): Input metrics report.
     """
     import json
+    from path import Path
+
     from google.cloud import aiplatform
 
     with open(metrics.path, "r") as f:
@@ -147,14 +147,12 @@ def register_model_component(
     # Using a dummy threshold
     if evaluation_metrics["rmse"] < 10000:
         aiplatform.init(project=project, location=location)
-        
+
         # Register the model
         _ = aiplatform.Model.upload(
-            artifact_uri=model.path,
+            artifact_uri=str(Path(model.path).parent),
             display_name=model_display_name,
-            parent_model=model_display_name, 
             serving_container_image_uri=serving_container_image_uri,
-            labels=f"rmse: {round(evaluation_metrics['rmse'], 4)}"
         )
 
 
