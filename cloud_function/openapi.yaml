@@ -1,0 +1,33 @@
+
+swagger: '2.0'
+info:
+  title: price-api-gateway
+  description: Endpoint of the pricing model
+  version: 1.0.0
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /predict:
+    post:
+      operationId: predictPrice
+      description: Get predictions from the model
+      x-google-backend:
+        address: https://us-central1-sublime-sunspot-431116-t0.cloudfunctions.net/price-model-function
+        protocol: h2
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          description: List of products
+          schema:
+            type: object
+      responses:
+        200:
+          description: List of predictions
+          schema:
+            type: object
+        400:
+          description: Bad request.
