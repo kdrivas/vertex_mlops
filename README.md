@@ -103,7 +103,6 @@ curl -X POST "https://price-api-3ijz0oh4.uc.gateway.dev/predict" \
               {
                   "product_name": "Aerie Everyday Loves Lace Cheeky",
                   "mrp": "12.50 USD",
-                  "price": "12.50 USD",
                   "pdp_url": "https://www.ae.com/aerie-everyday-loves-lace-cheeky-natural-nude/aerie/s-prod/1775_5973_153?cm=sDE-cEUR&catId=cat6150142",
                   "brand_name": "AERIE",
                   "product_category": "Cheekies",
