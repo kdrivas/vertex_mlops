@@ -48,20 +48,25 @@ vertex_mlops
 ```
 
 ## Project overview
-- The first step was to create a training pipeline in kubeflow. The pipeline creates a trained model and registers it to model registry.
-The figure below shows the steps of the kubeflow pipeline.
+- The first step was to create a training pipeline in kubeflow. The pipeline creates a trained model and registers it to model registry. The figure below shows the steps of the kubeflow pipeline.
  <img src="docs/training_pipeline.png" >
+
 - The following diagram contains the app architecture
 <img src="docs/app_architecture.png" >
-- Regarding the CI/CD pipeline, it contains 4 steps
-  * test_and_lint:
-    * This step runs pytest and check the code styling using Black. The tests are in the tests folder and the .pre-commit file contains the format styler tool
-  * build_and_push_package_docker:
-    * This step uses the Dockerfile and pushes the container to Artifact registry, it contains the model functions. For more details, check the folder price_model
-  * build_and_push_endpoint_docker:
-    * It upload the container to Artifact registry, this container is used when the model is created in Model registry
-  * deploy_cloud_function:
-    * It creates the cloud function that works as an intermediary between the Vertex Endpoint and the Gateway
+
+- Regarding the CI/CD pipeline, it contains 4 steps:
+  - **test_and_lint**:  
+    - This step runs `pytest` and checks the code styling using `Black`.  
+    - The tests are in the `tests` folder, and the `.pre-commit` file contains the format styling tool.
+  - **build_and_push_package_docker**:  
+    - This step uses the `Dockerfile` and pushes the container to Artifact Registry.  
+    - It contains the model functions.  
+    - For more details, check the folder `price_model`.
+  - **build_and_push_endpoint_docker**:  
+    - It uploads the container to Artifact Registry.  
+    - This container is used when the model is created in Model Registry.
+  - **deploy_cloud_function**:  
+    - It creates the cloud function that acts as an intermediary between the Vertex Endpoint and the API Gateway.
 
 ## Endpoint
 
