@@ -12,8 +12,8 @@ def preprocess_data_component(
     Preprocess the data.
 
     Args:
-        processed_train_data (Output[Dataset]): Path to the train data.
-        processed_test_data (Output[Dataset]): Path to the test data.
+        train_preprocessed_data (Output[Dataset]): Path to the train data.
+        test_preprocessed_data (Output[Dataset]): Path to the test data.
         train_labels_data (Output[Dataset]): Path to the train labels.
         test_labels_data (Output[Dataset]): Path to the test labels.
     """
@@ -45,8 +45,10 @@ def feature_engineering_component(
     Run feature engineering using the preprocessed data.
 
     Args:
-        processed_data (Input[Dataset]): Path to the preprocessed data.
-        features (Output[Dataset]): Path to the features.
+        train_preprocessed_data (Input[Dataset]): Path to the preprocessed data.
+        test_preprocessed_data (Input[Dataset]): Path to the preprocessed data.
+        train_features_data (Output[Dataset]): Path to the features.
+        test_features_data (Output[Dataset]): Path to the features.
     """
 
     from price_model.data import feature_eng_data
@@ -72,7 +74,8 @@ def train_model_component(
     Run feature engineering using the preprocessed data.
 
     Args:
-        processed_data (Input[Dataset]): Path to the preprocessed data.
+        train_features_data (Input[Dataset]): Path to the preprocessed data.
+        train_labels_data (Input[Dataset]): Path to the label data.
         features (Output[Dataset]): Path to the features.
     """
 
@@ -99,7 +102,7 @@ def evaluate_model_component(
     Evaluates the trained model.
 
     Args:
-        processed_test_data (Input[Dataset]): Input processed test data.
+        test_features_data (Input[Dataset]): Input processed test data.
         test_labels_data (Input[Dataset]): Input test labels data.
         model (Input[Model]): Input trained model.
         evaluation_metrics (Output[Artifact]): Output evaluation metrics.
@@ -133,6 +136,8 @@ def register_model_component(
     Args:
         project (str): Project ID.
         location (str): GCP location (e.g. `us-central1`).
+        model_display_name (str): The model name.
+        serving_container_image_uri (str): The image used by the model container.
         model (Input[Model]): Input trained model artifact.
         metrics (Input[Artifact]): Input metrics report.
     """
