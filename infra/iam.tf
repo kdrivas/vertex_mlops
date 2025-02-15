@@ -2,13 +2,14 @@ locals {
   github_sa_roles = [
     "roles/artifactregistry.writer",
     "roles/iam.serviceAccountUser",
+    "roles/cloudbuild.builds.builder",
+    "roles/cloudfunctions.developer",
   ]
   kfp_pipeline_sa_roles = [
     "roles/aiplatform.user",
     "roles/storage.admin",
     "roles/iam.serviceAccountUser",
     "roles/logging.logWriter",
-
   ]
 }
 
