@@ -153,6 +153,8 @@ def register_model_component(
             artifact_uri=str(Path(model.path).parent),
             display_name=model_display_name,
             serving_container_image_uri=serving_container_image_uri,
+            serving_container_predict_route="/predict",  # Prediction route
+            serving_container_health_route="/health",
         )
 
 
