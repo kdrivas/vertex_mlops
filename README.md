@@ -49,7 +49,7 @@ vertex_mlops
 ## Project overview
 - The first step was to create a training pipeline in kubeflow. The pipeline creates a trained model and registers it to model registry.
 The figure below shows the steps of the kubeflow pipeline.
- <img src="docs/kubeflow_pipeline.png" >
+ <img src="docs/training_pipeline.png" >
 - The following diagram contains the app architecture
 <img src="docs/app_architecture.png" >
 
