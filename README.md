@@ -10,8 +10,9 @@
 
 ```
 vertex_mlops
-├── Dockerfile
-├── Dockerfile.server      
+├── .github                               # Contains the CI CD pipeline
+├── Dockerfile                            # Container for the python package (price model package)
+├── Dockerfile.server                     # Container for the Vertex endpoint
 ├── README.md 
 ├── app                                   # Fastapi deployed in Vertex endpoint
 │   ├── main.py
@@ -52,6 +53,15 @@ The figure below shows the steps of the kubeflow pipeline.
  <img src="docs/training_pipeline.png" >
 - The following diagram contains the app architecture
 <img src="docs/app_architecture.png" >
+- Regarding the CI/CD pipeline, it contains 4 steps
+-     test_and_lint:
+-         This step runs pytest and check the code styling using Black. The tests are in the tests folder and the .pre-commit file contains the format styler tool
+-     build_and_push_package_docker:
+-         This step uses the Dockerfile and pushes the container to Artifact registry, it contains the model functions. For more details, check the folder price_model
+-     build_and_push_endpoint_docker:
+-         It upload the container to Artifact registry, this container is used when the model is created in Model registry
+-     deploy_cloud_function:
+-         It creates the cloud function that works as an intermediary between the Vertex Endpoint and the Gateway
 
 ## Endpoint
 
